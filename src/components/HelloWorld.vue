@@ -38,9 +38,15 @@ defineProps({
 .text {
   color: #888;
 }
+body.w .text {
+  color: black;
+}
 a {
-  color: #1f2157;
+  color: #3840db;
   text-decoration: underline;
+}
+body.w .text a {
+  color: #1f2157;
 }
 a:hover {
   color: #3b44fd
@@ -48,9 +54,6 @@ a:hover {
 /* footer.w {
   background-color: #0000002c;
 } */
-body.w .text {
-  color: black;
-}
 footer {
   position: fixed;
   outline: 0px solid red;
