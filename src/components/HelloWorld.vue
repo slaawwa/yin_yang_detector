@@ -25,7 +25,7 @@ defineProps({
       >create-vue</a
     >, the official Vue + Vite starter
   </p> -->
-  <footer :class="{'w': status === 1}">
+  <footer>
     <!-- <p class="text">Do you have changes? Welcome)</p> -->
     <p class="text">
       <a href="https://github.com/slaawwa/yin_yang_detector" target="_blank">GitHub repo</a>

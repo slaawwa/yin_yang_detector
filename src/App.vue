@@ -2,6 +2,22 @@
 import { computed, onMounted, ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 
+const SEX_KEY = 'mySex'
+const SEX_MALE = '1'
+const SEX_FAMALE = '0'
+
+const getSex = () => {
+  let sex = SEX_MALE
+  if (localStorage.getItem(SEX_KEY)) {
+    sex = localStorage.getItem(SEX_KEY)
+  } else {
+    // sex = Math.random() > 0.5 ? SEX_MALE : SEX_FAMALE
+    sex = `${parseInt(Math.random().toString()[2], 10) % 2}`
+    localStorage.setItem(SEX_KEY, sex)
+  }
+  return sex === SEX_FAMALE ? SEX_FAMALE : SEX_MALE
+}
+
 const LOADING = 0
 const BAD = 1
 const GOOD = 2
@@ -11,6 +27,7 @@ const MSG = [
   'Oh, you must be a good person 😇',
 ]
 
+const sex = ref(getSex())
 const status = ref(LOADING)
 const msg = computed(() => {
   return MSG[status.value] || ''
@@ -36,10 +53,10 @@ onMounted(() => {
       <img src="/static/logo.jpg" class="logoLoading" alt="logo" />
     </a>
     <a v-else-if="status === 1" href="#">
-      <img src="/static/badly.jpg" class="logo vue" alt="logo1" />
+      <img :src="`static/badly${sex}.jpg`" class="logo bad" alt="logo1" />
     </a>
     <a v-else href="#">
-      <img src="/static/goodness.jpg" class="logo" alt="logo2" />
+      <img :src="`static/goodness${sex}.jpg`" class="logo" alt="logo2" />
     </a>
   </div>
   <HelloWorld :msg="msg" />
@@ -62,7 +79,7 @@ a {
   /* filter: drop-shadow(0 0 2em #646cffaa); */
   animation: pulseGood 2s infinite;
 }
-.logo.vue {
+.logo.bad {
   /* filter: drop-shadow(0 0 2em #42b883aa); */
   animation: pulseBad 2s infinite;
 }
