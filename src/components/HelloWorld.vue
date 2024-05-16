@@ -28,7 +28,7 @@ defineProps({
   <footer>
     <!-- <p class="text">Do you have changes? Welcome)</p> -->
     <p class="text">
-      <a href="https://github.com/slaawwa/yin_yang_detector" target="_blank">GitHub repo</a>
+      <a href="https://github.com/slaawwa/yin_yang_detector">GitHub repo</a>
       by @Slaawwa
     </p>
   </footer>
