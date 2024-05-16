@@ -18,7 +18,7 @@ const msg = computed(() => {
 
 onMounted(() => {
   const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
-  const isDarkTheme = !darkThemeMq.matches
+  const isDarkTheme = darkThemeMq.matches
   setTimeout(() => {
     status.value = isDarkTheme ? GOOD : BAD
     document.body.classList.remove('no')
