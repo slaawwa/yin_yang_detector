@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy0": "gh-pages -d dist",
-    "deploy": "node gh-pages.js"
+    "deploy": "bun gh-pages.js"
   },
   "dependencies": {
     "vue": "^3.4.21"
