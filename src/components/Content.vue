@@ -6,15 +6,13 @@ const props = defineProps({
   version: String,
 })
 
-defineEmits({
-  toggleMood: Function,
-})
+defineEmits(['toggleMood'])
 
 const emoji = ref('')
 
 onUpdated(() => {
-  const [emojiMsg] = props.msg.match(/[\p{Emoji}\u200d]+/gu) || [''];
-  emoji.value = emojiMsg
+  const [emojiMsg] = props.msg.match(/[\p{Emoji}\u200d]+/gu) || [];
+  emoji.value = emojiMsg || ''
 })
 
 const outMsg = computed(() => {
@@ -24,7 +22,10 @@ const outMsg = computed(() => {
 </script>
 
 <template>
-  <h1>{{ outMsg }} <span @dblclick="$emit('toggleMood')" class="noSelect">{{ emoji }}</span></h1>
+  <h1>
+    {{ outMsg }}
+    <span @dblclick="$emit('toggleMood')" class="noSelect">{{ emoji }}</span>
+  </h1>
 
   <!-- <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
