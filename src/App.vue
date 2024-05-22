@@ -1,10 +1,13 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
+import api from './utils/api'
 
 const SEX_KEY = 'mySex'
 const SEX_MALE = '1'
 const SEX_FAMALE = '0'
+
+const version = ref('🕒')
 
 const getSex = () => {
   let sex = SEX_MALE
@@ -45,6 +48,12 @@ onMounted(() => {
   }, 1500)
 })
 
+onMounted(() => {
+  api.version().then(v => {
+    version.value = v
+  })
+})
+
 </script>
 
 <template>
@@ -59,7 +68,7 @@ onMounted(() => {
       <img :src="`static/goodness${sex}.jpg`" class="logo" alt="logo2" />
     </a>
   </div>
-  <HelloWorld :msg="msg" />
+  <HelloWorld :msg="msg" :version="version" />
 </template>
 
 <style scoped>

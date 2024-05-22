@@ -1,14 +1,17 @@
 {
   "name": "check-theme.loc",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy0": "gh-pages -d dist",
-    "deploy": "bun gh-pages.js"
+    "incVersion:major": "bun script/incVersion.js --inc=MAJOR",
+    "incVersion:minor": "bun script/incVersion.js --inc=MINOR",
+    "incVersion:patch": "bun script/incVersion.js --inc=PATCH",
+    "deploy": "bun script/gh-pages.js",
+    "full": "bun run build && bun run incVersion:patch && bun run deploy"
   },
   "dependencies": {
     "vue": "^3.4.21"

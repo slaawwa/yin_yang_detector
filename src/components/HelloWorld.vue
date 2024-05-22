@@ -3,6 +3,7 @@
 
 defineProps({
   msg: String,
+  version: String,
 })
 
 // const count = ref(0)
@@ -29,7 +30,7 @@ defineProps({
     <!-- <p class="text">Do you have changes? Welcome)</p> -->
     <p class="text">
       <a href="https://github.com/slaawwa/yin_yang_detector">GitHub repo</a>
-      by @Slaawwa
+      by @Slaawwa • {{ version }}
     </p>
   </footer>
 </template>
