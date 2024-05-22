@@ -13,8 +13,8 @@ export default defineConfig({
   // publicDir: 'assets',
   server: {
     proxy: {
-      '^/api': {
-        target: 'https://slaawwa.github.io/yin_yang_detector/',
+      '^/yin_yang_detector/api': {
+        target: 'https://slaawwa.github.io/',
         secure: false,
         changeOrigin: true,
         configure: (proxy, options) => {

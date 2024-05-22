@@ -1,5 +1,5 @@
 
-const BASE_URL = '/yin_yang_detector/'
+const BASE_URL = '/yin_yang_detector'
 
 const callApi = async (url = '', opts = {}) => {
   const r = await fetch(`${BASE_URL}${url}`, {

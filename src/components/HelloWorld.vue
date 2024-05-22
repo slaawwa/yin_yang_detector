@@ -6,11 +6,15 @@ defineProps({
   version: String,
 })
 
+defineEmits({
+  toggleMood: Function,
+})
+
 // const count = ref(0)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h1 @dblclick="$emit('toggleMood')" class="noSelect">{{ msg }}</h1>
 
   <!-- <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
@@ -36,6 +40,11 @@ defineProps({
 </template>
 
 <style scoped>
+.noSelect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 .text {
   color: #888;
 }

@@ -36,15 +36,21 @@ const msg = computed(() => {
   return MSG[status.value] || ''
 })
 
+const setTheme = (isDarkTheme = false) => {
+  status.value = isDarkTheme ? GOOD : BAD
+  document.body.classList.remove('no')
+  if (isDarkTheme) {
+    document.body.classList.remove('w')
+  } else {
+    document.body.classList.add('w')
+  }
+}
+
 onMounted(() => {
   const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
   const isDarkTheme = darkThemeMq.matches
   setTimeout(() => {
-    status.value = isDarkTheme ? GOOD : BAD
-    document.body.classList.remove('no')
-    if (!isDarkTheme) {
-      document.body.classList.add('w')
-    }
+    setTheme(isDarkTheme);
   }, 1500)
 })
 
@@ -54,6 +60,16 @@ onMounted(() => {
   })
 })
 
+const toggleSex = () => {
+  sex.value = sex.value === SEX_FAMALE ? SEX_MALE : SEX_FAMALE
+  localStorage.setItem(SEX_KEY, sex.value)
+}
+
+const toggleMood = () => {
+  const isDarkTheme = status.value === GOOD 
+  setTheme(!isDarkTheme);
+}
+
 </script>
 
 <template>
@@ -62,13 +78,13 @@ onMounted(() => {
       <img src="/static/logo.jpg" class="logoLoading" alt="logo" />
     </a>
     <a v-else-if="status === 1" href="#">
-      <img :src="`static/badly${sex}.jpg`" class="logo bad" alt="logo1" />
+      <img :src="`static/badly${sex}.jpg`" class="logo bad" alt="logo1" @dblclick="toggleSex" />
     </a>
     <a v-else href="#">
-      <img :src="`static/goodness${sex}.jpg`" class="logo" alt="logo2" />
+      <img :src="`static/goodness${sex}.jpg`" class="logo" alt="logo2" @dblclick="toggleSex" />
     </a>
   </div>
-  <HelloWorld :msg="msg" :version="version" />
+  <HelloWorld :msg="msg" :version="version" @toggleMood="toggleMood" />
 </template>
 
 <style scoped>
