@@ -1,7 +1,7 @@
 <script setup>
-// import { ref } from 'vue'
+import { computed, onUpdated, ref } from 'vue';
 
-defineProps({
+const props = defineProps({
   msg: String,
   version: String,
 })
@@ -10,11 +10,21 @@ defineEmits({
   toggleMood: Function,
 })
 
-// const count = ref(0)
+const emoji = ref('')
+
+onUpdated(() => {
+  const [emojiMsg] = props.msg.match(/[\p{Emoji}\u200d]+/gu) || [''];
+  emoji.value = emojiMsg
+})
+
+const outMsg = computed(() => {
+  return (props?.msg || '').replace('😈', '').replace('😇', '')
+})
+
 </script>
 
 <template>
-  <h1 @dblclick="$emit('toggleMood')" class="noSelect">{{ msg }}</h1>
+  <h1>{{ outMsg }} <span @dblclick="$emit('toggleMood')" class="noSelect">{{ emoji }}</span></h1>
 
   <!-- <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
