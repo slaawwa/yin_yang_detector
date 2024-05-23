@@ -1,11 +1,29 @@
+<template>
+  <div>
+    <a v-if="status === 0" href="#" @click.prevent>
+      <img src="/static/logo.jpg" class="logoLoading" alt="logo" />
+    </a>
+    <a v-else href="#" @click.prevent>
+      <img
+        :src="`static/${status === 1 ? 'badly' : 'goodness'}${sex}.jpg`"
+        :alt="status === 1 ? 'Pic male' : 'Pic female'"
+        :class="{ bad: status === 1 }"
+        class="logo"
+        @dblclick.stop="toggleSex"
+      />
+    </a>
+  </div>
+  <Content :msg="msg" :version="version" @toggleMood="toggleMood" />
+</template>
+
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Content from './components/Content.vue'
 import api from './utils/api'
 
 const SEX_KEY = 'mySex'
 const SEX_MALE = '1'
-const SEX_FAMALE = '0'
+const SEX_FEMALE = '0'
 
 const version = ref('🕒')
 
@@ -14,11 +32,11 @@ const getSex = () => {
   if (localStorage.getItem(SEX_KEY)) {
     sex = localStorage.getItem(SEX_KEY)
   } else {
-    // sex = Math.random() > 0.5 ? SEX_MALE : SEX_FAMALE
+    // sex = Math.random() > 0.5 ? SEX_MALE : SEX_FEMALE
     sex = `${parseInt(Math.random().toString()[2], 10) % 2}`
     localStorage.setItem(SEX_KEY, sex)
   }
-  return sex === SEX_FAMALE ? SEX_FAMALE : SEX_MALE
+  return sex === SEX_FEMALE ? SEX_FEMALE : SEX_MALE
 }
 
 const LOADING = 0
@@ -61,7 +79,7 @@ onMounted(() => {
 })
 
 const toggleSex = () => {
-  sex.value = sex.value === SEX_FAMALE ? SEX_MALE : SEX_FAMALE
+  sex.value = sex.value === SEX_FEMALE ? SEX_MALE : SEX_FEMALE
   localStorage.setItem(SEX_KEY, sex.value)
 }
 
@@ -71,21 +89,6 @@ const toggleMood = () => {
 }
 
 </script>
-
-<template>
-  <div>
-    <a v-if="status === 0" href="#">
-      <img src="/static/logo.jpg" class="logoLoading" alt="logo" />
-    </a>
-    <a v-else-if="status === 1" href="#">
-      <img :src="`static/badly${sex}.jpg`" class="logo bad" alt="logo1" @dblclick="toggleSex" />
-    </a>
-    <a v-else href="#">
-      <img :src="`static/goodness${sex}.jpg`" class="logo" alt="logo2" @dblclick="toggleSex" />
-    </a>
-  </div>
-  <HelloWorld :msg="msg" :version="version" @toggleMood="toggleMood" />
-</template>
 
 <style scoped>
 a {
